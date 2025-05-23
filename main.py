@@ -34,7 +34,7 @@ def show_progress_bar(stream, chunk, bytes_remaining):
 def download_youtube_video(url, format_choice):
     try:
         cleaned_url = clean_url(url)
-        yt = YouTube(cleaned_url, on_progress_callback=show_progress_bar)
+        yt = YouTube(cleaned_url, on_progress_callback=show_progress_bar, use_po_token=True)
         print(f"\n🎬 Titel: {yt.title}")
 
         if format_choice.lower() == "mp4":
