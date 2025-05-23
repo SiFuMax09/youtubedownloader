@@ -4,9 +4,6 @@ import re
 import sys
 
 def clean_url(url):
-    """
-    Entfernt alle Parameter aus YouTube-URLs wie ?si=... oder &t=...
-    """
     original_url = url
     if "youtu.be/" in url:
         match = re.match(r"(https?://youtu\.be/[\w\-]+)", url)
@@ -25,23 +22,16 @@ def show_progress_bar(stream, chunk, bytes_remaining):
     total_size = stream.filesize
     bytes_downloaded = total_size - bytes_remaining
     percentage_of_completion = bytes_downloaded / total_size * 100
-    progress_bar_length = 50  # Länge der Anzeige
+    progress_bar_length = 50
 
     done = int(progress_bar_length * bytes_downloaded / total_size)
-    sys.stdout.write(f"\r📥 [{('=' * done)}{' ' * (progress_bar_length - done)}] {percentage_of_completion:5.1f}%")
+    sys.stdout.write(f"\r📥 [{'=' * done}{' ' * (progress_bar_length - done)}] {percentage_of_completion:5.1f}%")
     sys.stdout.flush()
 
 def download_youtube_video(url, format_choice):
     try:
         cleaned_url = clean_url(url)
-        yt = YouTube(
-            cleaned_url,
-            on_progress_callback=show_progress_bar,
-            use_po_token=True,
-            po_token="MnSVQKnuH-YmzJV4AUuLiTcRcCgmYuNaY6v_OTqXXe2tktPU9BQrMZLAS511pF4j5LykfHQnYDoAAez-qcu9BtBUI0DiEfgkCRXT3ivtSgEHfEJiRWF4XC7phWdLgZOPq4yQHHE5Ig7WW_NuQnYlRrKe6XsX7Q=="
-        )
-
-
+        yt = YouTube(cleaned_url, client='WEB', on_progress_callback=show_progress_bar)
         print(f"\n🎬 Titel: {yt.title}")
 
         if format_choice.lower() == "mp4":
