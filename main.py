@@ -34,8 +34,12 @@ def show_progress_bar(stream, chunk, bytes_remaining):
 def download_youtube_video(url, format_choice):
     try:
         cleaned_url = clean_url(url)
-        yt = YouTube(cleaned_url, on_progress_callback=show_progress_bar, use_po_token=True)
-        yt.po_token = "MnSVQKnuH-YmzJV4AUuLiTcRcCgmYuNaY6v_OTqXXe2tktPU9BQrMZLAS511pF4j5LykfHQnYDoAAez-qcu9BtBUI0DiEfgkCRXT3ivtSgEHfEJiRWF4XC7phWdLgZOPq4yQHHE5Ig7WW_NuQnYlRrKe6XsX7Q=="
+        yt = YouTube(
+            cleaned_url,
+            on_progress_callback=show_progress_bar,
+            use_po_token=True,
+            po_token="MnSVQKnuH-YmzJV4AUuLiTcRcCgmYuNaY6v_OTqXXe2tktPU9BQrMZLAS511pF4j5LykfHQnYDoAAez-qcu9BtBUI0DiEfgkCRXT3ivtSgEHfEJiRWF4XC7phWdLgZOPq4yQHHE5Ig7WW_NuQnYlRrKe6XsX7Q=="
+        )
 
 
         print(f"\n🎬 Titel: {yt.title}")
